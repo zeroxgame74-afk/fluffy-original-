@@ -61,6 +61,51 @@
     .folder{width:110px;height:90px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  .more{max-width:1100px;margin:0 auto;padding:40px 6% 20px}
+  .more h2{font-size:30px;font-weight:700;margin-bottom:24px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s}
+  .step{border:2px solid #554d44;padding:24px;position:relative}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;top:-18px;left:18px;background:var(--orange);color:var(--ink);border:2px solid var(--ink);width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-family:'Press Start 2P',monospace;font-size:11px}
+  .step h3{font-size:18px;margin:6px 0 6px}
+  .step p{color:var(--muted);font-size:15px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+  .panel{border:2px solid #554d44;padding:26px}
+  .panel h3{font-size:18px;margin-bottom:12px}
+  .panel ul{list-style:none;color:var(--muted);font-size:15px}
+  .panel li{padding:6px 0;border-bottom:1px dashed #554d44}
+  .panel li:last-child{border-bottom:none}
+  @media (max-width:820px){.steps,.split{grid-template-columns:1fr}}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+
+  .demo{padding:0;overflow:hidden;background:#2E2A26;transform:rotate(2deg)}
+  .demo-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#221F1C;border-bottom:3px solid var(--ink);color:var(--muted);font-size:13px}
+  .demo-bar span{width:10px;height:10px;border:2px solid var(--ink);background:var(--orange)}
+  .demo-bar span:nth-child(2){background:var(--blue)}
+  .demo-bar span:nth-child(3){background:var(--paper)}
+  .demo-bar em{margin-left:auto;font-style:normal}
+  .demo-body{position:relative;height:300px;display:flex;flex-direction:column;justify-content:space-between;padding:20px}
+  .demo-files{position:relative;height:120px}
+  .df{position:absolute;width:52px;height:64px;background:var(--paper);border:2px solid var(--ink);font-style:normal;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--ink);display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;animation:sortfile 6s ease-in-out infinite}
+  .df.photo{background:#ffd9a8}.df.video{background:#b9d3ff}.df.doc{background:#fff}.df.code{background:#c8f2c0}
+  .d1{left:6%;top:10px;animation-delay:0s}.d2{left:24%;top:30px;animation-delay:.3s}.d3{left:42%;top:8px;animation-delay:.6s}
+  .d4{left:60%;top:34px;animation-delay:.9s}.d5{left:76%;top:12px;animation-delay:1.2s}.d6{left:88%;top:36px;animation-delay:1.5s}
+  @keyframes sortfile{0%,15%{transform:translate(0,0) rotate(0);opacity:1}55%,85%{transform:translate(var(--tx,0),var(--ty,90px)) scale(.7);opacity:0}100%{transform:translate(0,0);opacity:1}}
+  .demo-folders{display:flex;justify-content:space-between;gap:10px}
+  .dfo{flex:1;height:90px;background:var(--blue);border:3px solid var(--ink);position:relative;box-shadow:4px 4px 0 var(--ink)}
+  .dfo::before{content:"";position:absolute;top:-12px;left:0;width:44px;height:12px;background:var(--blue);border:3px solid var(--ink);border-bottom:none}
+  .dfo b{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-family:'Press Start 2P',monospace;font-size:7px;color:var(--paper);font-weight:400}
+  @media (prefers-reduced-motion:reduce){.df{animation:none}}
+
+  /* v21: Halo/Retro neon */
+  .btn,.get,.hero .btn,.get-big .btn,.dl-go{border-radius:0!important;transition:box-shadow .2s,transform .15s,filter .2s}
+  .get:hover,.hero .btn:hover,.get-big .btn:hover{box-shadow:0 0 6px var(--orange),0 0 18px var(--orange),5px 5px 0 var(--ink)!important;filter:brightness(1.1)}
+  .hero .btn:hover{box-shadow:0 0 6px var(--blue),0 0 18px var(--blue),5px 5px 0 var(--ink)!important}
+  .panel{border-radius:0;box-shadow:inset 0 0 0 1px rgba(255,145,48,.25)}
+  .panel h3{text-shadow:0 0 8px rgba(255,145,48,.6);color:var(--orange)}
+  .panel li b{color:var(--orange)}
+  .panel li:hover{text-shadow:0 0 8px rgba(255,145,48,.7)}
+  .hud{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--orange);border:2px solid var(--orange);padding:8px 12px;display:inline-block;margin-bottom:18px;text-shadow:0 0 6px rgba(255,145,48,.6)}
 </style>
 </head>
 <body>
@@ -76,8 +121,19 @@
     <p>It sorts photos, videos, documents and code into their own folders. If it moves something wrong, Undo puts it back.</p>
     <a class="btn" href="#get">DOWNLOAD FREE</a>
   </div>
-  <figure class="shot">
-    <img src="screenshot.png" alt="Fluffy running on Windows">
+  <figure class="shot demo" aria-label="Animated preview of Fluffy sorting files">
+    <div class="demo-bar"><span></span><span></span><span></span><em>Downloads</em></div>
+    <div class="demo-body">
+      <div class="demo-files">
+        <i class="df d1 photo">JPG</i><i class="df d2 video">MP4</i><i class="df d3 doc">PDF</i>
+        <i class="df d4 photo">PNG</i><i class="df d5 code">JS</i><i class="df d6 doc">DOC</i>
+      </div>
+      <div class="demo-folders">
+        <div class="dfo"><b>Photos</b></div>
+        <div class="dfo"><b>Videos</b></div>
+        <div class="dfo"><b>Docs</b></div>
+      </div>
+    </div>
   </figure>
 </section>
 
@@ -105,13 +161,42 @@
   </div>
 </section>
 
+<section class="more">
+  <div class="hud">FLUFFY v34 · SYSTEM ONLINE</div>
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step"><h3>Pick a folder</h3><p>Choose the messy folder you want to clean up.</p></div>
+    <div class="step"><h3>Let Fluffy sort</h3><p>Files are grouped by type into their own folders.</p></div>
+    <div class="step"><h3>Undo if needed</h3><p>Not happy with the result? Undo restores the original layout.</p></div>
+  </div>
+  <div class="split">
+    <div class="panel">
+      <h3>Changelog · v34</h3>
+      <ul>
+        <li><b>Splash screen:</b> fixed, the app opens again.</li>
+        <li><b>Title bar:</b> buttons no longer turn blue on hover.</li>
+        <li><b>Retro splash:</b> color stripe, FLUFFY logo box, blinking loading text and a 20-block progress bar.</li>
+        <li><b>Errors:</b> now show in a popup instead of closing silently.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Requirements</h3>
+      <ul>
+        <li>Windows 10 or 11</li>
+        <li>About 50 MB of free disk space</li>
+        <li>No admin rights needed</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="get-big" id="get">
   <div class="box">
     <div>
-      <h2>Version 17.0</h2>
+      <h2>Version 34</h2>
       <p>Free. Windows only. Just run the file, no big install.</p>
     </div>
-    <a class="btn" href="Fluffy_v17.exe" download>Download Fluffy.exe</a>
+    <a class="btn" href="Fluffy_v34.exe" download>Download Fluffy.exe</a>
   </div>
 </section>
 
